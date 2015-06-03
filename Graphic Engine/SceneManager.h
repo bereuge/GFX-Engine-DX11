@@ -1,13 +1,9 @@
 #pragma once
 
-#include "Scene.h"
 #include <unordered_map>
-
-//template<class T, class V>
-//class gfxHashMap : public std::unordered_map<T, V, std::hash_compare<T, stdext::less<T>>, std::allocator<std::pair<const T, V>> > { };
+#include "Scene.h"
 
 typedef std::unordered_map<char*, Scene*> gfxHashMap;
-
 
 class SceneManager
 {

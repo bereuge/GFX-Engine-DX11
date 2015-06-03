@@ -24,6 +24,7 @@ void SceneManager::ChangeScene(char* _name)
 
 void SceneManager::AddSceneToList(Scene* _newScene, char* _name)
 {
+	//_newScene->SetSceneManager(this);
 	std::pair<char*, Scene*> _entry(_name, _newScene);
 	m_mSceneMap.insert(_entry);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SceneManager.h"
+class SceneManager;
 
 class Scene
 {
@@ -15,6 +15,7 @@ public:
 	virtual void PostRender();
 
 	void SetSceneManager(SceneManager* _manager);
+
 	/*
 	void AddModel(mesh, material);
 	void AddLight(?);
