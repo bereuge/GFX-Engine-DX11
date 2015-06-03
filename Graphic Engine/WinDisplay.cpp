@@ -1,5 +1,7 @@
 #include "WinDisplay.h"
 
+#include <iostream>
+
 WinDisplay::WinDisplay() : m_iScreenWidth(0), m_iScreenHeight(0) { }
 
 WinDisplay::~WinDisplay() { }
@@ -86,6 +88,9 @@ void WinDisplay::InitializeWindow(char* _appName, int _screenWidth, int _screenH
 	ShowWindow(m_hWindow, SW_SHOWDEFAULT);
 	SetForegroundWindow(m_hWindow);
 	SetFocus(m_hWindow);
+
+	std::cout << "Window created successfully." << std::endl;
+
 	// Hide the mouse cursor.
 	//ShowCursor(false);
 }
