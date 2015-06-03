@@ -15,14 +15,15 @@ Scene* SceneManager::GetCurrentScene() const
 	return m_oCurrentScene;
 }
 
-void SceneManager::ChangeScene()
+void SceneManager::ChangeScene(char* _name)
 {
-	m_oCurrentScene->CleanResources();
-	//m_oCurrentScene=//map.get(id);
-	m_oCurrentScene->SetupScene();
+	if (m_oCurrentScene != nullptr) m_oCurrentScene->CleanResources();
+	m_oCurrentScene = m_mSceneMap.find(_name)->second;
+	if (m_oCurrentScene != nullptr) m_oCurrentScene->SetupScene();
 }
 
 void SceneManager::AddSceneToList(Scene* _newScene, char* _name)
 {
-	//hashmap.add(newscene, key = _name)
+	std::pair<char*, Scene*> _entry(_name, _newScene);
+	m_mSceneMap.insert(_entry);
 }

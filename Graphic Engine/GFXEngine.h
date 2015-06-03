@@ -11,6 +11,7 @@ public:
 	~GFXEngine();
 
 	void Initialize(char* _appName, int _screenWidth, int _screenHeight, bool _vsync, bool _fullScreen, float _screenDepth, float _screenNear);
+	SceneManager& GetSceneManager();
 
 	void Run();
 

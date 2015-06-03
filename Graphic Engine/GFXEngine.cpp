@@ -11,6 +11,11 @@ void GFXEngine::Initialize(char* _appName, int _screenWidth, int _screenHeight, 
 	m_oRenderer.InitializeDX(_screenWidth, _screenHeight, _vsync, m_oDisplay.GetHandle(), _fullScreen, _screenDepth, _screenNear);
 }
 
+SceneManager& GFXEngine::GetSceneManager()
+{
+	return m_oSceneManager;
+}
+
 void GFXEngine::Run()
 {
 	MSG msg;

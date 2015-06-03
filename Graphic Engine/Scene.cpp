@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+#include <iostream>
+
 Scene::Scene()
 {
 
@@ -33,4 +35,9 @@ void Scene::Render()
 void Scene::PostRender()
 {
 
+}
+
+void Scene::SetSceneManager(SceneManager* _manager)
+{
+	m_oSceneManager = _manager;
 }

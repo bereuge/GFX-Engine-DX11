@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SceneManager.h"
+
 class Scene
 {
 public:
@@ -12,6 +14,7 @@ public:
 	/*virtual*/ void Render();
 	virtual void PostRender();
 
+	void SetSceneManager(SceneManager* _manager);
 	/*
 	void AddModel(mesh, material);
 	void AddLight(?);
@@ -19,6 +22,9 @@ public:
 	*/
 
 	//INPUT??
+
+protected:
+	SceneManager* m_oSceneManager;
 
 private:
 	//Model m_oModels[]; //or an array of meshes and another for materials?
