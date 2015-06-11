@@ -1,13 +1,14 @@
 #pragma once
 
 #include <d3d11.h>
-#include <DirectXMath.h>
+#include "DataTypes.h"
+/*#include <DirectXMath.h>
 
 struct Vertex
 {
 	DirectX::XMFLOAT3 position;
 	DirectX::XMFLOAT4 color;
-};
+};*/
 
 class Mesh
 {

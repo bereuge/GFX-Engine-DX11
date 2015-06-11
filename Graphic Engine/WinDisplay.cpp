@@ -24,7 +24,7 @@ void WinDisplay::InitializeWindow(char* _appName, int _screenWidth, int _screenH
 	//TODO: set the window title as defined by the user
 
 	// Give the application a name.
-	m_sAppName = L"GFXENGINE";
+	m_sAppName = _appName;
 
 	// Setup the windows class with default settings.
 	wc.cbSize = sizeof(WNDCLASSEX);

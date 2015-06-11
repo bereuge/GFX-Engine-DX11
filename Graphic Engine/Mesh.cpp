@@ -32,7 +32,7 @@ void Mesh::Initialize(ID3D11Device* _device)
 
 	// Create the index array.
 
-	Vertex* vertices = new Vertex[m_iVertexCount];
+	GFX::Vertex* vertices = new GFX::Vertex[m_iVertexCount];
 
 	vertices[0].position = DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f);
 	vertices[0].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -50,7 +50,7 @@ void Mesh::Initialize(ID3D11Device* _device)
 	indices[2] = 2;
 
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(Vertex)*m_iVertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(GFX::Vertex)*m_iVertexCount;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -105,7 +105,7 @@ void Mesh::Render(ID3D11DeviceContext* _context)
 	unsigned int offset;
 
 	// Set vertex buffer stride and offset.
-	stride = sizeof(Vertex);
+	stride = sizeof(GFX::Vertex);
 	offset = 0;
 
 	// Set the vertex buffer to active in the input assembler so it can be rendered.

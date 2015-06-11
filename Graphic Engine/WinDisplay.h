@@ -15,7 +15,7 @@ public:
 
 private:
 	HWND m_hWindow;
-	LPCWSTR m_sAppName;
+	LPCSTR m_sAppName;
 	HINSTANCE m_hInstance;
 
 	int m_iScreenWidth;
