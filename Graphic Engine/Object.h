@@ -19,4 +19,5 @@ public:
 private:
 	Mesh* m_pMesh;
 	Material* m_pMaterial;
+	//Transform m_Transform;
 };

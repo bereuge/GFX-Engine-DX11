@@ -21,7 +21,7 @@ void Scene::SetupScene(DXRenderer* _renderer)
 	testmesh->Initialize(_renderer->GetDevice());
 	testObj.SetMesh(testmesh);
 	Material* testmat = new Material();
-	testmat->Initialize(L"Assets/TestMaterial.fx", _renderer->GetDevice());
+	testmat->Initialize(L"Assets/Test.mat", _renderer->GetDevice());
 	testObj.SetMaterial(testmat);
 }
 
