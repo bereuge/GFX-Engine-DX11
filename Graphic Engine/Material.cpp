@@ -1,6 +1,7 @@
 #include "Material.h"
 
 #include <d3dcompiler.h>
+#include <iostream>
 
 Material::Material() 
 	: m_pPixelShader(nullptr)
@@ -28,15 +29,17 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 	if (FAILED(result))
 	{
 		//assert
+		std::cout << "Failed to compile Vertex Shader" << std::endl;
 	}
 
 	ID3DBlob* _PSBlob = nullptr;
 	ID3DBlob* _PSErrorBlob = nullptr;
 
-	result = D3DCompileFromFile(_MPath, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS", "vs_4_0", 0, 0, &_PSBlob, &_PSErrorBlob);
+	result = D3DCompileFromFile(_MPath, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PS", "ps_4_0", 0, 0, &_PSBlob, &_PSErrorBlob);
 	if (FAILED(result))
 	{
 		//assert
+		std::cout << "Failed to compile Pixel Shader" << std::endl;
 	}
 
 	//Let's create'em now
@@ -44,12 +47,14 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 	if (FAILED(result))
 	{
 		//assert
+		std::cout << "Failed to create Vertex Shader" << std::endl;
 	}
 
 	result = _device->CreatePixelShader(_PSBlob->GetBufferPointer(), _PSBlob->GetBufferSize(), nullptr, &m_pPixelShader);
 	if (FAILED(result))
 	{
 		//assert
+		std::cout << "Failed to create Pixel Shader" << std::endl;
 	}
 
 	D3D11_INPUT_ELEMENT_DESC _iInputLayoutDesc[] =
@@ -62,7 +67,10 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 	if (FAILED(result))
 	{
 		//assert
+		std::cout << "Failed to create Input Layout" << std::endl;
 	}
+
+	std::cout << "Material created successfully!" << std::endl;
 
 	//Cleanup!
 	if (_VSBlob) _VSBlob->Release();

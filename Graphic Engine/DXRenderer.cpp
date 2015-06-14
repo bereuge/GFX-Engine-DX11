@@ -281,6 +281,7 @@ void DXRenderer::InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, 
 	backBufferPtr->Release();
 	backBufferPtr = nullptr;
 
+
 	// Initialize the description of the depth buffer.
 	ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
 

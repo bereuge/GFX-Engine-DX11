@@ -16,7 +16,7 @@ public:
 	void Run();
 
 private:
-	void Render();
+	void RenderCurrentScene();
 
 	WinDisplay m_oDisplay;
 	DXRenderer m_oRenderer;

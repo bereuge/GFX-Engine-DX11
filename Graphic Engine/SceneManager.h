@@ -11,8 +11,9 @@ public:
 	SceneManager();
 	~SceneManager();
 
+	void Start();
 	Scene* GetCurrentScene() const;
-	void ChangeScene(char* _name);
+	void ChangeScene(char* _name, DXRenderer* _renderer);
 	void AddSceneToList(Scene* _newScene, char* _name);
 
 private:

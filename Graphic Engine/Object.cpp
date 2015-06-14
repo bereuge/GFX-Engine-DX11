@@ -1,0 +1,35 @@
+#include "Object.h"
+#include "Mesh.h"
+#include "Material.h"
+
+Object::Object() : m_pMesh(nullptr), m_pMaterial(nullptr)
+{
+
+}
+
+Object::~Object()
+{
+	//to-do
+}
+
+void Object::SetMesh(Mesh* _mesh)
+{
+	m_pMesh = _mesh;
+}
+
+void Object::SetMaterial(Material* _material)
+{
+	m_pMaterial = _material;
+}
+
+void Object::Render(ID3D11DeviceContext* _context)
+{
+	if (m_pMaterial)
+	{
+		m_pMaterial->SetActive(_context);
+		if (m_pMesh)
+		{
+			m_pMesh->Render(_context);
+		}
+	}
+}

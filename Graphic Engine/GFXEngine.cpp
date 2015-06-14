@@ -18,6 +18,9 @@ SceneManager& GFXEngine::GetSceneManager()
 
 void GFXEngine::Run()
 {
+	//Let's setup the first scene
+	GetSceneManager().GetCurrentScene()->SetupScene(&m_oRenderer);
+
 	MSG msg;
 	bool done, result;
 
@@ -39,19 +42,19 @@ void GFXEngine::Run()
 		}
 		else
 		{
-			Render();
+			RenderCurrentScene();
 		}
 	}
 }
 
-void GFXEngine::Render()
+void GFXEngine::RenderCurrentScene()
 {
 	m_oRenderer.BeginRender();
 	Scene* _currScene = m_oSceneManager.GetCurrentScene();
 	if (_currScene != nullptr)
 	{
 		m_oSceneManager.GetCurrentScene()->PreRender();
-		m_oSceneManager.GetCurrentScene()->Render();
+		m_oSceneManager.GetCurrentScene()->Render(&m_oRenderer);
 		m_oSceneManager.GetCurrentScene()->PostRender();
 	}
 	m_oRenderer.EndRender();

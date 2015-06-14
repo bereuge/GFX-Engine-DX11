@@ -9,7 +9,8 @@ int main(int argc, char** argv)
 
 	Engine.Initialize("TODO", 800, 600, false, false, 1000.0f, 0.1f);
 	Engine.GetSceneManager().AddSceneToList(&scene, "lol");
-	Engine.GetSceneManager().ChangeScene("lol");
+	Engine.GetSceneManager().Start();
+	//Engine.GetSceneManager().ChangeScene("lol");
 
 	Engine.Run();
 

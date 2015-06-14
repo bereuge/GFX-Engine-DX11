@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include <iostream>
+
 Mesh::Mesh()
 {
 	m_bVertexBuffer = nullptr;
@@ -34,14 +36,14 @@ void Mesh::Initialize(ID3D11Device* _device)
 
 	GFX::Vertex* vertices = new GFX::Vertex[m_iVertexCount];
 
-	vertices[0].position = DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	vertices[0].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].position = DirectX::XMFLOAT3(-0.5f, -0.5f, 0.0f);
+	vertices[0].color = DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[1].position = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[1].position = DirectX::XMFLOAT3(0.0f, 0.5f, 0.0f);
 	vertices[1].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[2].position = DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[2].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].position = DirectX::XMFLOAT3(0.5f, -0.5f, 0.0f);
+	vertices[2].color = DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	unsigned long int* indices = new unsigned long int[m_iIndexCount];
 
@@ -64,7 +66,7 @@ void Mesh::Initialize(ID3D11Device* _device)
 	result = _device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_bVertexBuffer);
 	if (FAILED(result))
 	{
-
+		std::cout << "Failed to create vertex buffer" << std::endl;
 	}
 
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -83,8 +85,10 @@ void Mesh::Initialize(ID3D11Device* _device)
 	result = _device->CreateBuffer(&indexBufferDesc, &indexData, &m_bIndexBuffer);
 	if (FAILED(result))
 	{
-
+		std::cout << "Failed to create index buffer" << std::endl;
 	}
+
+	std::cout << "Mesh created successfully!" << std::endl;
 
 	delete[] indices;
 	delete[] vertices;
@@ -116,4 +120,6 @@ void Mesh::Render(ID3D11DeviceContext* _context)
 
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	_context->Draw(3, 0);
 }
