@@ -36,6 +36,19 @@ void Scene::SetupScene(DXRenderer* _renderer)
 	Material* testmat = new Material();
 	testmat->Initialize(L"Assets/Test.mat", _renderer->GetDevice());
 	testObj.SetMaterial(testmat);
+
+	testObj2.SetMesh(testmesh);
+	testObj2.SetMaterial(testmat);
+
+	testObj.GetTransform()->SetPosition(2.0f, 0.0f, 0.0f);
+	testObj.GetTransform()->SetRotationX(60.0f);
+	testObj.GetTransform()->SetRotationY(20.0f);
+	testObj.GetTransform()->SetRotationZ(5.0f);
+
+	testObj2.GetTransform()->SetPosition(-3.0f, 1.0f, 0.0f);
+	testObj2.GetTransform()->SetRotationX(10.0f);
+	testObj2.GetTransform()->SetRotationY(50.0f);
+	testObj2.GetTransform()->SetRotationZ(1.0f);
 }
 
 void Scene::CleanResources()
@@ -55,9 +68,7 @@ void Scene::PreRender()
 
 void Scene::Render(DXRenderer* _renderer)
 {
-	GFX::Transform transform;
-	transform.SetPosition(2.f, 0.f, 0.f);
-	*(testObj.GetTransform()) = transform;
+
 	//Let's set the constant buffer with the WorldViewProjection matrix
 	m_oWVP.WVP = DirectX::XMMatrixTranspose(testObj.GetTransform()->GetWorldMatrix() * testCamera.GetViewMatrix() * testCamera.GetProjectionMatrix());
 	_renderer->GetDeviceContext()->UpdateSubresource(m_bWVPMatrix, 0, nullptr, &m_oWVP, 0, 0);
@@ -65,6 +76,13 @@ void Scene::Render(DXRenderer* _renderer)
 
 	//Render the object
 	testObj.Render(_renderer->GetDeviceContext());
+
+	m_oWVP.WVP = DirectX::XMMatrixTranspose(testObj2.GetTransform()->GetWorldMatrix() * testCamera.GetViewMatrix() * testCamera.GetProjectionMatrix());
+	_renderer->GetDeviceContext()->UpdateSubresource(m_bWVPMatrix, 0, nullptr, &m_oWVP, 0, 0);
+	_renderer->GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_bWVPMatrix);
+
+	testObj2.Render(_renderer->GetDeviceContext());
+
 }
 
 void Scene::PostRender()

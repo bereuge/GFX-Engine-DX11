@@ -18,6 +18,9 @@ namespace GFX
 		//getscale
 		//translate
 		//rotateto
+		void SetRotationX(float _angle);
+		void SetRotationY(float _angle);
+		void SetRotationZ(float _angle);
 		DirectX::XMMATRIX GetWorldMatrix() const;
 
 	private:

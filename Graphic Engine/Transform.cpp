@@ -25,6 +25,21 @@ DirectX::XMFLOAT3 Transform::GetPosition() const
 	return m_vTranslation;
 }
 
+void Transform::SetRotationX(float _angle)
+{
+	m_aRotX = _angle;
+}
+
+void Transform::SetRotationY(float _angle)
+{
+	m_aRotY = _angle;
+}
+
+void Transform::SetRotationZ(float _angle)
+{
+	m_aRotZ = _angle;
+}
+
 //Is this okay? It is working...
 DirectX::XMMATRIX Transform::GetWorldMatrix() const
 {

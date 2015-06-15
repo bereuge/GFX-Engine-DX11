@@ -37,6 +37,7 @@ protected:
 
 private:
 	Object testObj;
+	Object testObj2;
 	GFX::Camera testCamera;
 
 	GFX::WVPObject m_oWVP;
