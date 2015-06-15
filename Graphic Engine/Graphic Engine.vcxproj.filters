@@ -25,21 +25,24 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{c5b48312-22d4-4eb0-a580-fd01a72fe506}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{b5ae4a82-4ea0-4b9e-a6c4-a5f9295664a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\System">
-      <UniqueIdentifier>{864eadfb-0ae6-4c99-ad61-27c7d9a79a11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Misc">
       <UniqueIdentifier>{5fcc643f-2b40-4953-8735-5c09f800803e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{b5ae4a82-4ea0-4b9e-a6c4-a5f9295664a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{864eadfb-0ae6-4c99-ad61-27c7d9a79a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{d4f1ee99-425a-40e8-84d7-557818b4c136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{f3979295-4565-4b5b-acd8-8b3b8b94692d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GFXEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
@@ -52,22 +55,25 @@
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="DXRenderer.cpp">
-      <Filter>Source Files\System</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="WinDisplay.cpp">
-      <Filter>Source Files\System</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="GFXEngine.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GFXEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
@@ -81,16 +87,22 @@
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="DXRenderer.h">
-      <Filter>Header Files\System</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="WinDisplay.h">
-      <Filter>Header Files\System</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="DataTypes.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="GFXEngine.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

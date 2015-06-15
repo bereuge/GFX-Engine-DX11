@@ -20,10 +20,10 @@ void Mesh::Initialize(ID3D11Device* _device)
 	HRESULT result;
 
 	// Set the number of vertices in the vertex array.
-	m_iVertexCount = 3;
+	m_iVertexCount = 8;
 
 	// Set the number of indices in the index array.
-	m_iIndexCount = 3;
+	m_iIndexCount = 36;
 
 	// Create the vertex array.
 	/*vertices = new VertexType[m_vertexCount];
@@ -34,7 +34,25 @@ void Mesh::Initialize(ID3D11Device* _device)
 
 	// Create the index array.
 
-	GFX::Vertex* vertices = new GFX::Vertex[m_iVertexCount];
+	/*GFX::Vertex vertices[] =
+	{
+		GFX::Vertex(-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f),
+		GFX::Vertex(0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
+		GFX::Vertex(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f),
+	};*/
+	GFX::Vertex vertices[] =
+	{
+		GFX::Vertex(-1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
+		GFX::Vertex(1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
+		GFX::Vertex(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),
+		GFX::Vertex(-1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),
+		GFX::Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f),
+		GFX::Vertex(1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f),
+		GFX::Vertex(1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
+		GFX::Vertex(-1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
+	};
+
+	/*GFX::Vertex* vertices = new GFX::Vertex[m_iVertexCount];
 
 	vertices[0].position = DirectX::XMFLOAT3(-0.5f, -0.5f, 0.0f);
 	vertices[0].color = DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -43,13 +61,7 @@ void Mesh::Initialize(ID3D11Device* _device)
 	vertices[1].color = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vertices[2].position = DirectX::XMFLOAT3(0.5f, -0.5f, 0.0f);
-	vertices[2].color = DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	unsigned long int* indices = new unsigned long int[m_iIndexCount];
-
-	indices[0] = 0;
-	indices[1] = 1;
-	indices[2] = 2;
+	vertices[2].color = DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);*/
 
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexBufferDesc.ByteWidth = sizeof(GFX::Vertex)*m_iVertexCount;
@@ -69,6 +81,32 @@ void Mesh::Initialize(ID3D11Device* _device)
 		std::cout << "Failed to create vertex buffer" << std::endl;
 	}
 
+	/*unsigned long int* indices = new unsigned long int[m_iIndexCount];
+
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;*/
+	unsigned long int indices[] = 
+	{
+		3, 1, 0,
+		2, 1, 3, // Prima faccia cubo
+
+		0, 5, 4,
+		1, 5, 0, // Seconda faccia cubo
+
+		3, 4, 7,
+		0, 4, 3, // Terza faccia cubo
+
+		1, 6, 5,
+		2, 6, 1, // Quarta faccia cubo
+
+		2, 7, 6,
+		3, 7, 2, // Quinta faccia cubo
+
+		6, 4, 5,
+		7, 4, 6, // Sesta faccia cubo
+	};
+	
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_iIndexCount;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -90,8 +128,8 @@ void Mesh::Initialize(ID3D11Device* _device)
 
 	std::cout << "Mesh created successfully!" << std::endl;
 
-	delete[] indices;
-	delete[] vertices;
+	//delete[] indices;
+	//delete[] vertices;
 }
 
 void Mesh::Shutdown()
@@ -121,5 +159,5 @@ void Mesh::Render(ID3D11DeviceContext* _context)
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	_context->Draw(3, 0);
+	_context->DrawIndexed(m_iIndexCount, 0, 0);
 }

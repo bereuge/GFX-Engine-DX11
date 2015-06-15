@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
     <ClCompile Include="GFXEngine.cpp" />
     <ClCompile Include="main.cpp" />
@@ -76,6 +77,7 @@
     <ClCompile Include="WinDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="GFXEngine.h" />

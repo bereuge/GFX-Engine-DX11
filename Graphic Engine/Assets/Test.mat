@@ -1,3 +1,8 @@
+cbuffer cbPerObject
+{
+	float4x4 WVP;
+};
+
 struct VS_INPUT
 {
 	float3 Pos : POSITION;
@@ -13,8 +18,10 @@ struct PS_INPUT
 PS_INPUT VS(VS_INPUT input)
 {
 	PS_INPUT output;
-
-	output.Pos = float4(input.Pos, 1.0f);
+	
+	float4 pos = float4(input.Pos, 1.0f);
+	
+	output.Pos = mul(pos, WVP);
 	output.Color = input.Color;
 	
     return output;

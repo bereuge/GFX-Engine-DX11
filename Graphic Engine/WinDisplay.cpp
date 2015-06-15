@@ -115,6 +115,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	switch (umessage)
 	{
+		case WM_KEYDOWN:
+		{		
+			if (wparam == VK_ESCAPE)
+			{
+				DestroyWindow(hwnd);
+			}
+			return 0;
+		}
 		// Check if the window is being destroyed.
 		case WM_DESTROY:
 		{

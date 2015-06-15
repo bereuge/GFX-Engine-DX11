@@ -53,9 +53,10 @@ void GFXEngine::RenderCurrentScene()
 	Scene* _currScene = m_oSceneManager.GetCurrentScene();
 	if (_currScene != nullptr)
 	{
-		m_oSceneManager.GetCurrentScene()->PreRender();
-		m_oSceneManager.GetCurrentScene()->Render(&m_oRenderer);
-		m_oSceneManager.GetCurrentScene()->PostRender();
+		_currScene->Update();
+		_currScene->PreRender();
+		_currScene->Render(&m_oRenderer);
+		_currScene->PostRender();
 	}
 	m_oRenderer.EndRender();
 }

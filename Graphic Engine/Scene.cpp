@@ -15,8 +15,21 @@ Scene::~Scene()
 
 void Scene::SetupScene(DXRenderer* _renderer)
 {
-	//Let's initialize the resources
+	//Setup the constant buffer for the WorldViewProjection matrix
+	D3D11_BUFFER_DESC cbDesc;
+	ZeroMemory(&cbDesc, sizeof(D3D11_BUFFER_DESC));
 
+	cbDesc.Usage = D3D11_USAGE_DEFAULT;
+	cbDesc.ByteWidth = sizeof(GFX::WVPObject);
+	cbDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbDesc.CPUAccessFlags = 0;
+	cbDesc.MiscFlags = 0;
+
+	_renderer->GetDevice()->CreateBuffer(&cbDesc, NULL, &m_bWVPMatrix);
+
+	testCamera.SetPosition(DirectX::XMFLOAT3(5.0f, 5.0f, -10.0f));
+
+	//Let's initialize the resources
 	Mesh* testmesh = new Mesh();
 	testmesh->Initialize(_renderer->GetDevice());
 	testObj.SetMesh(testmesh);
@@ -30,6 +43,11 @@ void Scene::CleanResources()
 	//DESTROY EVERYTHING!!
 }
 
+void Scene::Update()
+{
+
+}
+
 void Scene::PreRender()
 {
 
@@ -37,7 +55,12 @@ void Scene::PreRender()
 
 void Scene::Render(DXRenderer* _renderer)
 {
-	//Call the renderer
+	//Let's set the constant buffer with the WorldViewProjection matrix
+	m_oWVP.WVP = DirectX::XMMatrixTranspose(DirectX::XMMatrixIdentity() * testCamera.GetViewMatrix() * testCamera.GetProjectionMatrix());
+	_renderer->GetDeviceContext()->UpdateSubresource(m_bWVPMatrix, 0, nullptr, &m_oWVP, 0, 0);
+	_renderer->GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_bWVPMatrix);
+
+	//Render the object
 	testObj.Render(_renderer->GetDeviceContext());
 }
 
