@@ -27,7 +27,7 @@ void Scene::SetupScene(DXRenderer* _renderer)
 
 	_renderer->GetDevice()->CreateBuffer(&cbDesc, NULL, &m_bWVPMatrix);
 
-	testCamera.SetPosition(DirectX::XMFLOAT3(5.0f, 5.0f, -10.0f));
+	testCamera.SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f));
 
 	//Let's initialize the resources
 	Mesh* testmesh = new Mesh();
@@ -55,8 +55,11 @@ void Scene::PreRender()
 
 void Scene::Render(DXRenderer* _renderer)
 {
+	GFX::Transform transform;
+	transform.SetPosition(2.f, 0.f, 0.f);
+	*(testObj.GetTransform()) = transform;
 	//Let's set the constant buffer with the WorldViewProjection matrix
-	m_oWVP.WVP = DirectX::XMMatrixTranspose(DirectX::XMMatrixIdentity() * testCamera.GetViewMatrix() * testCamera.GetProjectionMatrix());
+	m_oWVP.WVP = DirectX::XMMatrixTranspose(testObj.GetTransform()->GetWorldMatrix() * testCamera.GetViewMatrix() * testCamera.GetProjectionMatrix());
 	_renderer->GetDeviceContext()->UpdateSubresource(m_bWVPMatrix, 0, nullptr, &m_oWVP, 0, 0);
 	_renderer->GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_bWVPMatrix);
 

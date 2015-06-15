@@ -22,6 +22,11 @@ void Object::SetMaterial(Material* _material)
 	m_pMaterial = _material;
 }
 
+GFX::Transform* Object::GetTransform()
+{
+	return &m_oTransform;
+}
+
 void Object::Render(ID3D11DeviceContext* _context)
 {
 	if (m_pMaterial)

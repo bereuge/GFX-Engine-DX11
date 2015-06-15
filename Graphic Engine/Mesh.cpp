@@ -43,13 +43,13 @@ void Mesh::Initialize(ID3D11Device* _device)
 	GFX::Vertex vertices[] =
 	{
 		GFX::Vertex(-1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
-		GFX::Vertex(1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
+		GFX::Vertex(1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f),
 		GFX::Vertex(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),
-		GFX::Vertex(-1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),
+		GFX::Vertex(-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f),
 		GFX::Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f),
-		GFX::Vertex(1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f),
-		GFX::Vertex(1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
-		GFX::Vertex(-1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f),
+		GFX::Vertex(1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 1.0f),
+		GFX::Vertex(1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f),
+		GFX::Vertex(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f),
 	};
 
 	/*GFX::Vertex* vertices = new GFX::Vertex[m_iVertexCount];

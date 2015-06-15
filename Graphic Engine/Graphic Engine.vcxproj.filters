@@ -72,6 +72,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Material.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
