@@ -1,3 +1,8 @@
+/*
+Forse è meglio separare i vertex e i pixel in modo da ridurre il più possibile
+le chiamate per settare lo shader da usare! Tanto useranno quasi tutti lo stesso vertex shader
+*/
+
 #pragma once
 
 #include <d3d11.h>

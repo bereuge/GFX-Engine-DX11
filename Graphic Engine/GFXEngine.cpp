@@ -22,7 +22,7 @@ void GFXEngine::Run()
 	GetSceneManager().GetCurrentScene()->SetupScene(&m_oRenderer);
 
 	MSG msg;
-	bool done, result;
+	bool done;
 
 	ZeroMemory(&msg, sizeof(MSG));
 
@@ -55,7 +55,7 @@ void GFXEngine::RenderCurrentScene()
 	{
 		_currScene->Update();
 		_currScene->PreRender();
-		_currScene->Render(&m_oRenderer);
+		_currScene->Render();
 		_currScene->PostRender();
 	}
 	m_oRenderer.EndRender();

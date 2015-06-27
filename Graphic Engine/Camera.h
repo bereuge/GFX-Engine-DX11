@@ -1,3 +1,9 @@
+/*
+To-do
+Aspect ratio get/set
+Ortographic camera?
+Clip distance, camera o frustum?
+*/
 #pragma once
 
 #include <d3d11.h>
@@ -19,7 +25,6 @@ namespace GFX
 
 		DirectX::XMMATRIX GetViewMatrix() const;
 		DirectX::XMMATRIX GetProjectionMatrix() const;
-		
 
 	private:
 		DirectX::XMVECTOR m_vPosition;

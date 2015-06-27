@@ -1,5 +1,6 @@
 #include "DXRenderer.h"
 
+#include "Object.h"
 #include <iostream>
 
 DXRenderer::DXRenderer()
@@ -396,13 +397,19 @@ void DXRenderer::InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, 
 	fieldOfView = (float)DirectX::XM_PI / 4.0f;
 	screenAspect = (float)_screenWidth / (float)_screenHeight;
 
-	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, _screenNear, _screenDepth);
+	//Create constant buffer for the vertex shader
+	D3D11_BUFFER_DESC cbDesc;
+	ZeroMemory(&cbDesc, sizeof(D3D11_BUFFER_DESC));
 
-	// Initialize the world matrix to the identity matrix.
-	m_worldMatrix = DirectX::XMMatrixIdentity();
+	cbDesc.Usage = D3D11_USAGE_DEFAULT;
+	cbDesc.ByteWidth = sizeof(GFX::ConstantObject);
+	cbDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbDesc.CPUAccessFlags = 0;
+	cbDesc.MiscFlags = 0;
 
-	// Create an orthographic projection matrix for 2D rendering.
-	m_orthoMatrix = DirectX::XMMatrixOrthographicLH(_screenWidth, _screenHeight, _screenNear, _screenDepth);
+	m_dDevice->CreateBuffer(&cbDesc, NULL, &m_bConstObj);
+
+	m_dDeviceContext->VSSetConstantBuffers(0, 1, &m_bConstObj);
 
 	std::cout << "DirectX initialized successfully." << std::endl;
 }
@@ -464,6 +471,16 @@ void DXRenderer::Shutdown()
 
 }
 
+void DXRenderer::SetViewMatrix(const DirectX::XMMATRIX& _viewMat)
+{
+	m_mView = _viewMat;
+}
+
+void DXRenderer::SetProjectionMatrix(const DirectX::XMMATRIX& _projMat)
+{
+	m_mProjection = _projMat;
+}
+
 void DXRenderer::BeginRender()
 {
 	float color[4];
@@ -492,6 +509,13 @@ void DXRenderer::EndRender()
 		// Present as fast as possible.
 		m_dSwapChain->Present(0, 0);
 	}
+}
+
+void DXRenderer::Render(Object* _objToRender)
+{
+	m_oCObj.WVP = DirectX::XMMatrixTranspose(_objToRender->GetTransform()->GetWorldMatrix() * m_mView * m_mProjection);
+	m_dDeviceContext->UpdateSubresource(m_bConstObj, 0, nullptr, &m_oCObj, 0, 0);
+	_objToRender->Render(m_dDeviceContext);
 }
 
 ID3D11Device* DXRenderer::GetDevice()

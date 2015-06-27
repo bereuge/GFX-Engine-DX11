@@ -4,6 +4,9 @@
 #include <d3dcommon.h>
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "DataTypes.h"
+
+class Object;
 
 class DXRenderer
 {
@@ -14,9 +17,16 @@ public:
 	void InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, HWND _hwnd, bool _fullScreen, float _screenDepth, float _screenNear);
 	void Shutdown();
 
+	void SetViewMatrix(const DirectX::XMMATRIX& _viewMat);
+	void SetProjectionMatrix(const DirectX::XMMATRIX& _projMat);
+
 	void BeginRender();
 	void EndRender();
 
+	void Render(Object* _objToRender);
+	//void RenderScene(Object* _objsToRender, int _iNofObjs);
+
+	//Non sarebbe male cavare questi due getter, manteniamo l'utilizzo delle directx solo all'interno del renderer 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
 
@@ -30,9 +40,11 @@ private:
 	ID3D11DepthStencilView* m_dDepthStencilView;
 	ID3D11RasterizerState* m_dRasterState;
 
-	DirectX::XMMATRIX m_projectionMatrix;
-	DirectX::XMMATRIX m_worldMatrix;
-	DirectX::XMMATRIX m_orthoMatrix;
+	DirectX::XMMATRIX m_mView;
+	DirectX::XMMATRIX m_mProjection;
+
+	GFX::ConstantObject m_oCObj;
+	ID3D11Buffer* m_bConstObj;
 
 	bool m_bVSyncEnabled;
 	int m_iVideoCardMemory;

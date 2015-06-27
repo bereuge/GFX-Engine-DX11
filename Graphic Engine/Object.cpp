@@ -10,6 +10,7 @@ Object::Object() : m_pMesh(nullptr), m_pMaterial(nullptr)
 Object::~Object()
 {
 	//to-do
+	//Però non dovrebbe essere l'object a fare la delete su mesh e materiale, dovrebbe occuparsene un resource manager!
 }
 
 void Object::SetMesh(Mesh* _mesh)

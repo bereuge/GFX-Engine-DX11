@@ -15,7 +15,7 @@ namespace GFX
 		DirectX::XMFLOAT4 color;
 	};
 
-	struct WVPObject
+	struct ConstantObject
 	{
 		DirectX::XMMATRIX WVP;
 	};
