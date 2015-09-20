@@ -3,6 +3,7 @@
 #include "WinDisplay.h"
 #include "DXRenderer.h"
 #include "SceneManager.h"
+#include "Timer.h"
 
 class GFXEngine
 {
@@ -16,11 +17,12 @@ public:
 	void Run();
 
 private:
-	void RenderCurrentScene();
+	void RunCurrentScene(float deltaTime);
 
 	WinDisplay m_oDisplay;
 	DXRenderer m_oRenderer;
 	SceneManager m_oSceneManager;
-	//Renderer m_rRenderer;
+
+	Timer m_oTimer;
 	//Scene* m_sCurrentScene;
 };

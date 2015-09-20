@@ -1,9 +1,9 @@
 #pragma once
 
 #include <unordered_map>
-#include "Scene.h"
+#include "AbstractScene.h"
 
-typedef std::unordered_map<char*, Scene*> gfxHashMap;
+typedef std::unordered_map<char*, AbstractScene*> gfxHashMap;
 
 class SceneManager
 {
@@ -12,11 +12,11 @@ public:
 	~SceneManager();
 
 	void Start();
-	Scene* GetCurrentScene() const;
-	void ChangeScene(char* _name, DXRenderer* _renderer);
-	void AddSceneToList(Scene* _newScene, char* _name);
+	AbstractScene* GetCurrentScene() const;
+	void ChangeScene(char* _name);
+	void AddSceneToList(AbstractScene* _newScene, char* _name);
 
 private:
-	Scene* m_oCurrentScene;
+	AbstractScene* m_oCurrentScene;
 	gfxHashMap m_mSceneMap;
 };

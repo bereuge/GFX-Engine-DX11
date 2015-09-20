@@ -19,6 +19,8 @@ public:
 	void Initialize(ID3D11Device* _device);
 	void Shutdown();
 
+	void LoadFromFile(const char* _filename);
+
 	void Render(ID3D11DeviceContext* _context);
 
 private:

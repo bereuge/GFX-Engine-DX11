@@ -25,6 +25,13 @@ DirectX::XMFLOAT3 Transform::GetPosition() const
 	return m_vTranslation;
 }
 
+void Transform::SetRotation(float _angleX, float _angleY, float _angleZ)
+{
+	m_aRotX = _angleX;
+	m_aRotY = _angleY;
+	m_aRotZ = _angleZ;
+}
+
 void Transform::SetRotationX(float _angle)
 {
 	m_aRotX = _angle;

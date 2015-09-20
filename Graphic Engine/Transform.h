@@ -18,6 +18,7 @@ namespace GFX
 		//getscale
 		//translate
 		//rotateto
+		void SetRotation(float _angleX, float _angleY, float _angleZ);
 		void SetRotationX(float _angle);
 		void SetRotationY(float _angle);
 		void SetRotationZ(float _angle);

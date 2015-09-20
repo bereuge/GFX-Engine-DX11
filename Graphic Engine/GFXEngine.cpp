@@ -1,5 +1,11 @@
 #include "GFXEngine.h"
 
+#pragma comment(lib, "winmm.lib")
+
+#include <iostream>
+#include <Windows.h>
+#include <mmsystem.h>
+
 GFXEngine::GFXEngine() { }
 
 GFXEngine::~GFXEngine() { }
@@ -18,13 +24,21 @@ SceneManager& GFXEngine::GetSceneManager()
 
 void GFXEngine::Run()
 {
-	//Let's setup the first scene
-	GetSceneManager().GetCurrentScene()->SetupScene(&m_oRenderer);
+	//Let's setup the scene
+	GetSceneManager().GetCurrentScene()->SetRenderer(&m_oRenderer);
+	GetSceneManager().GetCurrentScene()->SetupScene();
 
 	MSG msg;
 	bool done;
 
 	ZeroMemory(&msg, sizeof(MSG));
+
+	int fps = 0;
+	unsigned long startTime = timeGetTime();
+	int frameCount = 0;
+
+
+	float frameTime = m_oTimer.GetFrameTime();
 
 	done = false;
 	while (!done)
@@ -42,18 +56,30 @@ void GFXEngine::Run()
 		}
 		else
 		{
-			RenderCurrentScene();
+			++frameCount;
+			if (m_oTimer.GetTime() > 1.0f)
+			{
+				fps = frameCount;
+				frameCount = 0;
+				m_oTimer.Initialize();
+			}
+
+			frameTime = m_oTimer.GetFrameTime();
+
+			std::cout << fps << std::endl;
+
+			RunCurrentScene(frameTime);
 		}
 	}
 }
 
-void GFXEngine::RenderCurrentScene()
+void GFXEngine::RunCurrentScene(float deltaTime)
 {
 	m_oRenderer.BeginRender();
-	Scene* _currScene = m_oSceneManager.GetCurrentScene();
+	AbstractScene* _currScene = m_oSceneManager.GetCurrentScene();
 	if (_currScene != nullptr)
 	{
-		_currScene->Update();
+		_currScene->Update(deltaTime);
 		_currScene->PreRender();
 		_currScene->Render();
 		_currScene->PostRender();

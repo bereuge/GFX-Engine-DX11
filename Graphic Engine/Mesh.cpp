@@ -1,6 +1,9 @@
 #include "Mesh.h"
 
 #include <iostream>
+/*#include "assimp\Importer.hpp"
+#include "assimp\scene.h"
+#include "assimp\postprocess.h"*/
 
 Mesh::Mesh()
 {
@@ -139,6 +142,18 @@ void Mesh::Shutdown()
 
 	m_bIndexBuffer->Release();
 	m_bIndexBuffer = nullptr;
+}
+
+void Mesh::LoadFromFile(const char* _filename)
+{
+	//Assimp::Importer importer;
+	
+	/*const aiScene* scene = importer.ReadFile(_filename, 
+		aiProcess_CalcTangentSpace		|
+		aiProcess_Triangulate			|
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType);*/
+
 }
 
 void Mesh::Render(ID3D11DeviceContext* _context)

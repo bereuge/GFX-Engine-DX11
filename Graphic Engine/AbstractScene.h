@@ -4,26 +4,26 @@
 #include "Object.h"
 #include "Camera.h"
 #include "DXRenderer.h"
+#include <vector>
 
 class SceneManager;
 
-class Scene
+class AbstractScene
 {
 public:
-	Scene();
-	virtual ~Scene();
+	AbstractScene();
+	virtual ~AbstractScene();
 
-	virtual void SetupScene(DXRenderer* _renderer);
-	void CleanResources();
+	virtual void SetupScene();
+	virtual void CleanResources();
 
-	virtual void Update();
+	virtual void Update(float deltaTime);
 
 	virtual void PreRender();
-	void Render();
+	virtual void Render();
 	virtual void PostRender();
 
-	void SetSceneManager(SceneManager* _manager);
-
+	void SetRenderer(DXRenderer* _renderer);
 	/*
 	void AddObject();
 	void DeleteObject();
@@ -34,15 +34,16 @@ public:
 	//INPUT??
 
 protected:
-	SceneManager* m_oSceneManager;
+	GFX::Camera testCamera;
+
+	DXRenderer* m_pRenderer;
 
 private:
 	//Array (o un qualche tipo custom) di obj 
 	Object testObj;
 	Object testObj2;
+	Object objArray[3500];
 	float x;
-
-	GFX::Camera testCamera;
-
-	DXRenderer* m_pRenderer;
+	float offset;
+	int sign = 1;
 };

@@ -15,7 +15,10 @@ DXRenderer::DXRenderer()
 	m_dRasterState = nullptr;
 }
 
-DXRenderer::~DXRenderer() { }
+DXRenderer::~DXRenderer() 
+{ 
+	//to-do
+}
 
 void DXRenderer::InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, HWND _hwnd, bool _fullScreen, float _screenDepth, float _screenNear)
 {
