@@ -25,8 +25,7 @@ SceneManager& GFXEngine::GetSceneManager()
 void GFXEngine::Run()
 {
 	//Let's setup the scene
-	GetSceneManager().GetCurrentScene()->SetRenderer(&m_oRenderer);
-	GetSceneManager().GetCurrentScene()->SetupScene();
+	GetSceneManager().GetCurrentScene()->SetupScene(&m_oRenderer);
 
 	MSG msg;
 	bool done;
@@ -81,7 +80,7 @@ void GFXEngine::RunCurrentScene(float deltaTime)
 	{
 		_currScene->Update(deltaTime);
 		_currScene->PreRender();
-		_currScene->Render();
+		_currScene->Render(&m_oRenderer);
 		_currScene->PostRender();
 	}
 	m_oRenderer.EndRender();

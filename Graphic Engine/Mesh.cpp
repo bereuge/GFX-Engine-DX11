@@ -5,6 +5,8 @@
 #include "assimp\scene.h"
 #include "assimp\postprocess.h"*/
 
+int Mesh::meshCount = 0;
+
 Mesh::Mesh()
 {
 	m_bVertexBuffer = nullptr;
@@ -131,6 +133,9 @@ void Mesh::Initialize(ID3D11Device* _device)
 
 	std::cout << "Mesh created successfully!" << std::endl;
 
+	m_iID = meshCount;
+	++meshCount;
+
 	//delete[] indices;
 	//delete[] vertices;
 }
@@ -156,23 +161,31 @@ void Mesh::LoadFromFile(const char* _filename)
 
 }
 
-void Mesh::Render(ID3D11DeviceContext* _context)
+void Mesh::Render(ID3D11DeviceContext* _context, bool _alreadyActive)
 {
 	unsigned int stride;
 	unsigned int offset;
 
-	// Set vertex buffer stride and offset.
-	stride = sizeof(GFX::Vertex);
-	offset = 0;
+	if (!_alreadyActive)
+	{
+		// Set vertex buffer stride and offset.
+		stride = sizeof(GFX::Vertex);
+		offset = 0;
 
-	// Set the vertex buffer to active in the input assembler so it can be rendered.
-	_context->IASetVertexBuffers(0, 1, &m_bVertexBuffer, &stride, &offset);
+		// Set the vertex buffer to active in the input assembler so it can be rendered.
+		_context->IASetVertexBuffers(0, 1, &m_bVertexBuffer, &stride, &offset);
 
-	// Set the index buffer to active in the input assembler so it can be rendered.
-	_context->IASetIndexBuffer(m_bIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		// Set the index buffer to active in the input assembler so it can be rendered.
+		_context->IASetIndexBuffer(m_bIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
-	_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
+		_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	}
 
 	_context->DrawIndexed(m_iIndexCount, 0, 0);
+}
+
+int Mesh::GetID() const
+{
+	return m_iID;
 }

@@ -8,14 +8,18 @@ public:
 	CubeScene();
 	~CubeScene();
 
-	virtual void SetupScene() override;
+	virtual void SetupScene(DXRenderer* _renderer) override;
 	virtual void CleanResources() override;
 
-	virtual void Update(float deltaTime);
+	virtual void Update(float deltaTime) override;
 
-	virtual void Render();
+	virtual void PreRender() override;
+	virtual void Render(DXRenderer* _renderer) override;
+	virtual void PostRender() override;
 
 private:
+	GFX::Camera m_oMainCamera;
+
 	Object objArray[3500];
 	float x;
 	float offset;

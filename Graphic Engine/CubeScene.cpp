@@ -7,15 +7,15 @@ CubeScene::CubeScene() { }
 
 CubeScene::~CubeScene() { }
 
-void CubeScene::SetupScene()
+void CubeScene::SetupScene(DXRenderer* _renderer)
 {
 	Mesh* mesh = new Mesh();
-	mesh->Initialize(m_pRenderer->GetDevice());
+	mesh->Initialize(_renderer->GetDevice());
 
 	Material* material = new Material();
-	material->Initialize(L"Assets/Test.mat", m_pRenderer->GetDevice());
+	material->Initialize(L"Assets/Test.mat", _renderer->GetDevice());
 
-	testCamera.SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f));
+	m_oMainCamera.GetTransform()->SetPosition(0.0f, 0.0f, -10.0f);
 
 	for (int i = 0; i < 3500; ++i)
 	{
@@ -57,20 +57,28 @@ void CubeScene::Update(float deltaTime)
 
 	for (int i = 0; i < 3500; ++i)
 	{
-		objArray[i].GetTransform()->SetPosition(objArray[i].GetTransform()->GetPosition().x + (sign * 5 * deltaTime), objArray[i].GetTransform()->GetPosition().y, objArray[i].GetTransform()->GetPosition().z);
-		//objArray[i].GetTransform()->SetRotationX(1 * deltaTime);
-		//objArray[i].GetTransform()->SetRotationY(1 * deltaTime);
+		//objArray[i].GetTransform()->SetPosition(objArray[i].GetTransform()->GetPosition().x + (sign * 5 * deltaTime), objArray[i].GetTransform()->GetPosition().y, objArray[i].GetTransform()->GetPosition().z);
 	}
 }
 
-void CubeScene::Render()
+void CubeScene::PreRender()
 {
-	m_pRenderer->SetProjectionMatrix(testCamera.GetProjectionMatrix());
-	m_pRenderer->SetViewMatrix(testCamera.GetViewMatrix());
+
+}
+
+void CubeScene::Render(DXRenderer* _renderer)
+{
+	_renderer->SetProjectionMatrix(m_oMainCamera.GetProjectionMatrix());
+	_renderer->SetViewMatrix(m_oMainCamera.GetViewMatrix());
 
 	//Render the objects
 	for (int i = 0; i < 3500; ++i)
 	{
-		m_pRenderer->Render(&objArray[i]);
+		_renderer->Render(&objArray[i]);
 	}
+}
+
+void CubeScene::PostRender()
+{
+
 }

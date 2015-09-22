@@ -1,6 +1,8 @@
 #include "DXRenderer.h"
 
 #include "Object.h"
+#include "Material.h"
+#include "Mesh.h"
 #include <iostream>
 
 DXRenderer::DXRenderer()
@@ -518,7 +520,9 @@ void DXRenderer::Render(Object* _objToRender)
 {
 	m_oCObj.WVP = DirectX::XMMatrixTranspose(_objToRender->GetTransform()->GetWorldMatrix() * m_mView * m_mProjection);
 	m_dDeviceContext->UpdateSubresource(m_bConstObj, 0, nullptr, &m_oCObj, 0, 0);
-	_objToRender->Render(m_dDeviceContext);
+	_objToRender->Render(m_dDeviceContext, m_iCurrentMaterialID, m_iCurrentMeshID);
+	m_iCurrentMaterialID = _objToRender->GetMaterial()->GetID();
+	m_iCurrentMeshID = _objToRender->GetMesh()->GetID();
 }
 
 ID3D11Device* DXRenderer::GetDevice()

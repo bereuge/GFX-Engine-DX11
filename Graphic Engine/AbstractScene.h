@@ -11,19 +11,14 @@ class SceneManager;
 class AbstractScene
 {
 public:
-	AbstractScene();
-	virtual ~AbstractScene();
+	virtual void SetupScene(DXRenderer* _renderer) = 0;
+	virtual void CleanResources() = 0;
 
-	virtual void SetupScene();
-	virtual void CleanResources();
+	virtual void Update(float deltaTime) = 0;
 
-	virtual void Update(float deltaTime);
-
-	virtual void PreRender();
-	virtual void Render();
-	virtual void PostRender();
-
-	void SetRenderer(DXRenderer* _renderer);
+	virtual void PreRender() = 0;
+	virtual void Render(DXRenderer* _renderer) = 0;
+	virtual void PostRender() = 0;
 	/*
 	void AddObject();
 	void DeleteObject();
@@ -32,18 +27,4 @@ public:
 	*/
 
 	//INPUT??
-
-protected:
-	GFX::Camera testCamera;
-
-	DXRenderer* m_pRenderer;
-
-private:
-	//Array (o un qualche tipo custom) di obj 
-	Object testObj;
-	Object testObj2;
-	Object objArray[3500];
-	float x;
-	float offset;
-	int sign = 1;
 };

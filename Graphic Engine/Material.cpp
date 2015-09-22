@@ -3,6 +3,8 @@
 #include <d3dcompiler.h>
 #include <iostream>
 
+int Material::materialCount = 0;
+
 Material::Material() 
 	: m_pPixelShader(nullptr)
 	, m_pVertexShader(nullptr)
@@ -72,6 +74,9 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 
 	std::cout << "Material created successfully!" << std::endl;
 
+	m_iID = materialCount;
+	++materialCount;
+
 	//Cleanup!
 	if (_VSBlob) _VSBlob->Release();
 	if (_PSBlob) _PSBlob->Release();
@@ -84,4 +89,9 @@ void Material::SetActive(ID3D11DeviceContext* _context)
 	_context->IASetInputLayout(m_pInputLayout);
 	_context->VSSetShader(m_pVertexShader, nullptr, 0);
 	_context->PSSetShader(m_pPixelShader, nullptr, 0);
+}
+
+int Material::GetID() const
+{
+	return m_iID;
 }

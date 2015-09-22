@@ -49,4 +49,7 @@ private:
 	bool m_bVSyncEnabled;
 	int m_iVideoCardMemory;
 	char m_sVideoCardDescription[128];
+
+	int m_iCurrentMaterialID = -1;
+	int m_iCurrentMeshID = -1;
 };
