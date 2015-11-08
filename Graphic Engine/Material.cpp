@@ -18,7 +18,7 @@ Material::~Material()
 
 }
 
-void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
+void Material::Initialize(const wchar_t* _MPath, const wchar_t* _texturePath, ID3D11Device* _device)
 {
 	//First, compile the shaders...
 
@@ -62,7 +62,8 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 	D3D11_INPUT_ELEMENT_DESC _iInputLayoutDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
 	result = _device->CreateInputLayout(_iInputLayoutDesc, 2, _VSBlob->GetBufferPointer(), _VSBlob->GetBufferSize(), &m_pInputLayout);
@@ -77,6 +78,11 @@ void Material::Initialize(const wchar_t* _MPath, ID3D11Device* _device)
 	m_iID = materialCount;
 	++materialCount;
 
+	if (_texturePath != NULL)
+	{
+		//TO-DO
+	}
+
 	//Cleanup!
 	if (_VSBlob) _VSBlob->Release();
 	if (_PSBlob) _PSBlob->Release();
@@ -89,6 +95,9 @@ void Material::SetActive(ID3D11DeviceContext* _context)
 	_context->IASetInputLayout(m_pInputLayout);
 	_context->VSSetShader(m_pVertexShader, nullptr, 0);
 	_context->PSSetShader(m_pPixelShader, nullptr, 0);
+	//To-do:
+	//_context->PSSetShaderResources(0, 1, &texture);
+	//_context->PSGetSamplers(0, 1, &texSamplerState);
 }
 
 int Material::GetID() const

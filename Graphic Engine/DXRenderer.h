@@ -5,6 +5,7 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include "DataTypes.h"
+#include "Frustum.h"
 
 class Object;
 
@@ -24,9 +25,7 @@ public:
 	void EndRender();
 
 	void Render(Object* _objToRender);
-	//void RenderScene(Object* _objsToRender, int _iNofObjs);
 
-	//Non sarebbe male cavare questi due getter, manteniamo l'utilizzo delle directx solo all'interno del renderer 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
 
@@ -39,12 +38,18 @@ private:
 	ID3D11DepthStencilState* m_dDepthStencilState;
 	ID3D11DepthStencilView* m_dDepthStencilView;
 	ID3D11RasterizerState* m_dRasterState;
+	ID3D11SamplerState* m_dSamplerState;
 
 	DirectX::XMMATRIX m_mView;
 	DirectX::XMMATRIX m_mProjection;
 
 	GFX::ConstantObject m_oCObj;
 	ID3D11Buffer* m_bConstObj;
+
+	float m_fScreenDepth;
+	float m_fScreenNear;
+
+	Frustum m_oFrustum;
 
 	bool m_bVSyncEnabled;
 	int m_iVideoCardMemory;

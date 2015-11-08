@@ -73,6 +73,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeScene.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GFXEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="CubeScene.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DXRenderer.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="GFXEngine.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />

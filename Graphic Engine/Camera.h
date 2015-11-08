@@ -33,7 +33,6 @@ namespace GFX
 
 	private:
 		GFX::Transform m_oTransform;
-		//DirectX::XMVECTOR m_vPosition;
 		DirectX::XMVECTOR m_vTarget;
 		DirectX::XMVECTOR m_vUp;
 

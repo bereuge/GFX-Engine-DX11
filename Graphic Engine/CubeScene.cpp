@@ -17,13 +17,13 @@ void CubeScene::SetupScene(DXRenderer* _renderer)
 
 	m_oMainCamera.GetTransform()->SetPosition(0.0f, 0.0f, -10.0f);
 
-	for (int i = 0; i < 3500; ++i)
+	for (int i = 0; i < maxCubes; ++i)
 	{
 		objArray[i].SetMesh(mesh);
 		objArray[i].SetMaterial(material);
 
-		int xpos = rand() % 50 - 25;
-		int ypos = rand() % 50 - 25;
+		int xpos = rand() % 150 - 75;
+		int ypos = rand() % 150 - 75;
 		int zpos = rand() % 100 + 50;
 
 		objArray[i].GetTransform()->SetPosition(xpos, ypos, zpos);
@@ -55,7 +55,7 @@ void CubeScene::Update(float deltaTime)
 		sign = 1;
 	}
 
-	for (int i = 0; i < 3500; ++i)
+	for (int i = 0; i < maxCubes; ++i)
 	{
 		//objArray[i].GetTransform()->SetPosition(objArray[i].GetTransform()->GetPosition().x + (sign * 5 * deltaTime), objArray[i].GetTransform()->GetPosition().y, objArray[i].GetTransform()->GetPosition().z);
 	}
@@ -72,7 +72,7 @@ void CubeScene::Render(DXRenderer* _renderer)
 	_renderer->SetViewMatrix(m_oMainCamera.GetViewMatrix());
 
 	//Render the objects
-	for (int i = 0; i < 3500; ++i)
+	for (int i = 0; i < maxCubes; ++i)
 	{
 		_renderer->Render(&objArray[i]);
 	}

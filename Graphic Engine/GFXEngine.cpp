@@ -74,14 +74,14 @@ void GFXEngine::Run()
 
 void GFXEngine::RunCurrentScene(float deltaTime)
 {
-	m_oRenderer.BeginRender();
 	AbstractScene* _currScene = m_oSceneManager.GetCurrentScene();
 	if (_currScene != nullptr)
 	{
 		_currScene->Update(deltaTime);
 		_currScene->PreRender();
+		m_oRenderer.BeginRender();
 		_currScene->Render(&m_oRenderer);
+		m_oRenderer.EndRender();
 		_currScene->PostRender();
 	}
-	m_oRenderer.EndRender();
 }

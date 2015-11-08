@@ -41,6 +41,9 @@ void DXRenderer::InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, 
 	D3D11_VIEWPORT viewport;
 	float fieldOfView, screenAspect;
 
+	m_fScreenDepth = _screenDepth;
+	m_fScreenNear = _screenNear;
+
 	// Store the vsync setting.
 	m_bVSyncEnabled = _vsync;
 
@@ -412,6 +415,19 @@ void DXRenderer::InitializeDX(int _screenWidth, int _screenHeight, bool _vsync, 
 	cbDesc.CPUAccessFlags = 0;
 	cbDesc.MiscFlags = 0;
 
+	D3D11_SAMPLER_DESC sampDesc;
+	ZeroMemory(&sampDesc, sizeof(sampDesc));
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	m_dDevice->CreateSamplerState(&sampDesc, &m_dSamplerState);
+
+
 	m_dDevice->CreateBuffer(&cbDesc, NULL, &m_bConstObj);
 
 	m_dDeviceContext->VSSetConstantBuffers(0, 1, &m_bConstObj);
@@ -500,6 +516,9 @@ void DXRenderer::BeginRender()
 
 	// Clear the depth buffer.
 	m_dDeviceContext->ClearDepthStencilView(m_dDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	//Calculate the frustum for this frame
+	m_oFrustum.CreateFrustum(m_fScreenDepth, m_mProjection, m_mView);
 }
 
 void DXRenderer::EndRender()
@@ -518,11 +537,17 @@ void DXRenderer::EndRender()
 
 void DXRenderer::Render(Object* _objToRender)
 {
-	m_oCObj.WVP = DirectX::XMMatrixTranspose(_objToRender->GetTransform()->GetWorldMatrix() * m_mView * m_mProjection);
-	m_dDeviceContext->UpdateSubresource(m_bConstObj, 0, nullptr, &m_oCObj, 0, 0);
-	_objToRender->Render(m_dDeviceContext, m_iCurrentMaterialID, m_iCurrentMeshID);
-	m_iCurrentMaterialID = _objToRender->GetMaterial()->GetID();
-	m_iCurrentMeshID = _objToRender->GetMesh()->GetID();
+	DirectX::XMFLOAT3 objPos = _objToRender->GetTransform()->GetPosition();
+	bool visible = _objToRender->IsRenderable() && m_oFrustum.CheckCube(objPos.x, objPos.y, objPos.z, 1.0f);
+
+	if (visible)
+	{
+		m_oCObj.WVP = DirectX::XMMatrixTranspose(_objToRender->GetTransform()->GetWorldMatrix() * m_mView * m_mProjection);
+		m_dDeviceContext->UpdateSubresource(m_bConstObj, 0, nullptr, &m_oCObj, 0, 0);
+		_objToRender->Render(m_dDeviceContext, m_iCurrentMaterialID, m_iCurrentMeshID);
+		m_iCurrentMaterialID = _objToRender->GetMaterial()->GetID();
+		m_iCurrentMeshID = _objToRender->GetMesh()->GetID();
+	}
 }
 
 ID3D11Device* DXRenderer::GetDevice()

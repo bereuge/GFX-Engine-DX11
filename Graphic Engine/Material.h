@@ -14,7 +14,8 @@ public:
 	Material();
 	~Material();
 
-	void Initialize(const wchar_t* _MPath, ID3D11Device* _device);
+	void Initialize(const wchar_t* _MPath, const wchar_t* _texturePath, ID3D11Device* _device);
+
 	void SetActive(ID3D11DeviceContext* _context);
 
 	int GetID() const;
@@ -23,6 +24,8 @@ private:
 	ID3D11VertexShader* m_pVertexShader;
 	ID3D11PixelShader*	m_pPixelShader;
 	ID3D11InputLayout*	m_pInputLayout;
+
+	ID3D11ShaderResourceView* m_pShaderResource;
 
 	int m_iID;
 

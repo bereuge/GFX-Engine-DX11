@@ -18,10 +18,13 @@ public:
 	virtual void PostRender() override;
 
 private:
-	GFX::Camera m_oMainCamera;
 
-	Object objArray[3500];
+	static const int maxCubes = 2000;
+
+	GFX::Camera m_oMainCamera;
+	Object objArray[maxCubes];
 	float x;
 	float offset;
 	int sign = 1;
+
 };

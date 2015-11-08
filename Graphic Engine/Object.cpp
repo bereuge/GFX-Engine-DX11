@@ -43,6 +43,11 @@ void Object::SetRenderable(bool _toRender)
 	m_bRenderable = _toRender;
 }
 
+bool Object::IsRenderable()
+{
+	return m_bRenderable;
+}
+
 void Object::Render(ID3D11DeviceContext* _context, int _lastMaterialUsed, int _lastMeshUsed)
 {
 	if (m_bRenderable && m_pMaterial)

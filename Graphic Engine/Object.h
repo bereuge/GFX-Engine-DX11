@@ -23,6 +23,7 @@ public:
 	GFX::Transform* GetTransform();
 
 	void SetRenderable(bool _toRender);
+	bool IsRenderable();
 
 	void Render(ID3D11DeviceContext* _context, int _lastMaterialUsed, int _lastMeshUsed);
 
