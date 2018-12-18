@@ -19,7 +19,7 @@ Camera::~Camera()
 
 GFX::Transform* Camera::GetTransform()
 {
-	return nullptr;
+	return &m_oTransform;
 }
 
 void Camera::SetTarget(DirectX::XMFLOAT3 _target)
